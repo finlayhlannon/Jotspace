@@ -2,10 +2,40 @@
 <html>
   <head>
     <title>Jot</title>
+    <style>
+      body {
+        background-color: #f8f6f7;
+        font-family: Arial, sans-serif;
+      }
+      h1 {
+        text-align: center;
+        font-size: 32px;
+        color: #5750a0;
+        margin-top: 40px;
+        margin-bottom: 40px;
+      }
+      .jotbox{
+        background-color: rgb(233, 230, 221);
+        border-radius: 10px;
+        border: 1px solid #7c7c7c;
+        box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.5);
+        margin:50px;
+      }
+      .name{
+        text-align: center;
+        font-weight: 600;
+        font-size: 30px;
+      }
+      .jot{
+        margin: 20px;
+      }
+    </style>
   </head>
   <body>
-    <h1>Jot</h1>
-    <p>Name: {{ jot['name'] }}</p>
-    <p>Jot: {{ jot['jotspace'] }}</p>
+    <h1>Jot #____</h1>
+    <div class="jotbox">
+      <p class="name">{{ jot['name'] }}</p>
+      <p class="jot">{{ jot['jotspace'] }}</p>
+    </div>
   </body>
 </html>
