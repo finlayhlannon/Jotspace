@@ -31,8 +31,7 @@ def create_jot():
     url = generate_url()
     jots[url] = {'name': name, 'jotspace': jotspace}
     print(url)  # Debugging line
-    return redirect(f'/jot/{url}')
-
+    return url
 
 
 # Define the route to view a jot
