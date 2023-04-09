@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Jot Stream</title>
+	<link rel="stylesheet" href="static/style.css"/>
+  </head>
+  <body>
+    <h1>Recent Jots</h1>
+    {% for jot in jots %}
+      <div class="jot">
+        <h2 class="jotname">{{ jot.name }}</h2>
+        <p class="jotcontent">{{ jot.content }}</p>
+      </div>
+	  
+    {% endfor %}
+	<div class="menu">
+		<h2 class="menutitle">Menu</h2>
+		<p class="menucontent">Search</p>
+		<p class="menucontent">Request</p>
+		<p class="menucontent">Filter by:</p>
+		<p class="menufilter">Python</p>
+		<p class="menufilter">Javascript</p>
+		<p class="menufilter">HTML</p>
+		<p class="menufilter">CSS</p>
+		<p class="menufilter">Java</p>
+		<p class="menufilter">PHP</p>
+		<p class="menufilter">C++</p>
+	  </div>
+  </body>
+</html>
