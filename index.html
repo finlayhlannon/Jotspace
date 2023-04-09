@@ -12,7 +12,7 @@
         <textarea class="jotspace" placeholder="Jot here"></textarea>
       </div>
       <div class="right">
-        <div class="form-container">
+        <div class="form-container" action="/create_jot" method="post">
           <input type="text" placeholder="Name" class="name">
           <select>
             <option value="txt">Text</option>
@@ -86,35 +86,39 @@
             <option value="Ubiquitous computing">Ubiquitous computing</option>
             <option value="Wireless networks">Wireless networks</option>
           </select>
+          <input type="hidden" name="redirect_to" value="/jot/{{ randomnumber }}">
           <button class="submit">Jot</button>
         </div>
       </div>
     </div>
     <script>
-      $(document).ready(function(){
-        $(".submit").click(function(e){
-          e.preventDefault();
-          var name = $(".name").val();
-          var jotspace = $(".jotspace").val();
-          if(name.trim() === "" || jotspace.trim() === "") {
-            alert("Please fill in both name and jotspace fields");
-          } else {
-            window.location.href = "/stream";
-            $.ajax({
-              type: "POST",
-              url: "/create_jot",
-              data: {name: name, jotspace: jotspace},
-              success: function(response) {
-                window.location.href = "/stream";
-              },
-              error: function(xhr) {
-                console.log(xhr.responseText);
-              }
-            });
+      $(document).ready(function() {
+  $(".submit").click(function(e) {
+    e.preventDefault();
 
-          }
-        });
+    var name = $(".name").val();
+    var jotspace = $(".jotspace").val();
+
+    if (name.trim() === "" || jotspace.trim() === "") {
+      alert("Please fill in both name and jotspace fields");
+    } else {
+      $.ajax({
+        type: "POST",
+        url: "/create_jot",
+        data: { name: name, jotspace: jotspace },
+        success: function(response) {
+          var generatedCode = response.generated_code;
+          window.location.href = "/jot/" + generatedCode;
+        },
+        error: function(xhr) {
+          console.log(xhr.responseText);
+        }
       });
-    </script>
+    }
+  });
+});
+
+
+    </script>    
   </body>
 </html>
