@@ -13,6 +13,7 @@
         color: #5750a0;
         margin-top: 40px;
         margin-bottom: 40px;
+        
       }
       .jotbox{
         background-color: rgb(233, 230, 221);
@@ -20,6 +21,7 @@
         border: 1px solid #7c7c7c;
         box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.5);
         margin:50px;
+        counter-reset: line-number;
       }
       .name{
         text-align: center;
@@ -27,15 +29,34 @@
         font-size: 30px;
       }
       .jot{
-        margin: 20px;
+        margin-left: 20px;
+        margin-top:0px;
+        margin-bottom:0px;
+        counter-increment: line-number;
       }
+      .jot::before {
+        content: counter(line-number) ". ";
+        display: inline-block;
+        font-weight: bold;
+        margin-right: 10px;
+        width: 30px;
+        text-align: right;
+        color:#868686
+      }
+
     </style>
   </head>
   <body>
-    <h1>Jot #____</h1>
+    <h1>Jot #{{ request.url.split("/")[-1] | upper }}</h1>
     <div class="jotbox">
       <p class="name">{{ jot['name'] }}</p>
-      <p class="jot">{{ jot['jotspace'] }}</p>
+      {% set lines = jot['jotspace'].splitlines() %}
+      {% for i in range(1, lines|length + 1) %}
+        <pre class="jot">{{ lines[i-1] }}</pre>
+      {% endfor %}
     </div>
+    <script>
+      document.getElementById("url-placeholder").textContent = window.location.href;
+  </script>
   </body>
 </html>
