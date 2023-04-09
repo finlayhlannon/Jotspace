@@ -107,8 +107,7 @@
         url: "/create_jot",
         data: { name: name, jotspace: jotspace },
         success: function(response) {
-          var generatedCode = response.generated_code;
-          window.location.href = "/jot/" + generatedCode;
+          window.location.href = "/jot/" + response;
         },
         error: function(xhr) {
           console.log(xhr.responseText);
@@ -117,8 +116,6 @@
     }
   });
 });
-
-
     </script>    
   </body>
 </html>
