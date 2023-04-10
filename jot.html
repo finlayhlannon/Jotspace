@@ -21,7 +21,8 @@
       }
       .return{
         position: absolute;
-        margin-top: -20px;
+        margin-top: -85px;
+        margin-left:10px;
         text-align: center;
       }
       button {
@@ -84,7 +85,7 @@
             background-color: blue;
         }
         .javascript {
-            background-color: yellow;
+            background-color: rgb(243, 186, 0);
         }
         .css {
             background-color: orange;
@@ -119,8 +120,18 @@
         .password{
           position: absolute;
           font-size: 20px;
-          top:200px;
-          left:500px;
+          top:300px;
+          left:450px;
+          
+        }
+        .passwordinput{
+          background-color: #fff;
+          border-radius: 100px;
+          border: 1px solid #e6e6e6;
+          box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+          margin-left: 20px;
+          height: 35px;
+          width: 300px;
         }
         .hidden{
           position: absolute;
@@ -132,16 +143,17 @@
   <body>
     <p class="hidden">{{ jot['password'] }}</p>
     <div class="password">
-      <input type="password" id="password" placeholder="Password">
+      <input type="password" id="password" placeholder="Password" class="passwordinput">
       <button id="submitBtn">Submit</button>
     </div>
+    <h1>Jot #{{ request.url.split("/")[-1] | upper }}</h1>
     <div class="content">
     <img class="copyjot" src="/static/copy.png" alt="copy">
     <!--<img class="copylink" src="/static/copy.png" alt="copy">-->
     <div class="return">
       <button id="returnBtn"><< Return</button>
     </div>
-    <h1>Jot #{{ request.url.split("/")[-1] | upper }}</h1>
+    
     <div class="jotbox">
       <p class="name">{{ jot['name'] }}</p>
       <p class="language">
@@ -169,15 +181,15 @@
             .catch((error) => console.error(error));
         });
 
-        
-          const password = document.getElementById('password')
-          const realpass = document.getElementById('hidden')
-          if (document.querySelector('.hidden').textContent.trim() === "none"){
-            $('.content').show();
-            $('.password').hide();
-          }
-          else{
-            $("#submitBtn").click(function() {
+        const password = document.getElementById('password');
+        const realpass = document.getElementById('hidden');
+
+        if (document.querySelector('.hidden').textContent.trim() === "none") {
+          $('.content').show();
+          $('.password').hide();
+        } else {
+          const submitBtn = document.getElementById('submitBtn');
+          const checkPassword = function() {
             if (password.value === document.querySelector('.hidden').textContent.trim()) {
               // Password is correct, show the jot
               $('.content').show();
@@ -187,6 +199,13 @@
               $('.content').hide();
               $('.password').show();
               alert('Incorrect password');
+            }
+          };
+          submitBtn.addEventListener('click', checkPassword);
+          password.addEventListener('keydown', function(event) {
+            if (event.keyCode === 13) {
+              event.preventDefault();
+              submitBtn.click();
             }
           });
         }
