@@ -2,6 +2,8 @@
 <html>
   <head>
     <title>Jot</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="icon" type="image/png" href="copy.png">
     <style>
       body {
         background-color: #f8f6f7;
@@ -13,8 +15,21 @@
         color: #5750a0;
         margin-top: 40px;
         margin-bottom: 40px;
-        
       }
+      .return{
+        position: absolute;
+        margin-top: -20px;
+        text-align: center;
+      }
+      button {
+          background-color: #5750a0;
+          color: white;
+          font-size: 15px;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 100px;
+          cursor: pointer;
+        }
       .jotbox{
         background-color: rgb(233, 230, 221);
         border-radius: 10px;
@@ -43,19 +58,101 @@
         text-align: right;
         color:#868686
       }
+      .jotspace{
+        margin-bottom:20px;
+      }
+      .language{
+        position: absolute;
+        top:130px;
+        left:1150px;
+      }
+
+      .circle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            left: -15px;
+            top:2px;
+        }
+        .python {
+            background-color: blue;
+        }
+        .javascript {
+            background-color: yellow;
+        }
+        .css {
+            background-color: orange;
+        }
+        .html {
+            background-color: red;
+        }
+        .cplusplus {
+            background-color: rgb(79, 177, 216);
+          }
+        .text{
+          background-color: black;
+        }
+        .php{
+          background-color: rgb(144, 44, 175);
+        }
+        .java{
+          background-color: rgb(126, 82, 25);
+        }
+        .copyjot{
+          position: absolute;
+          top:-30px;
+          left:-200px;
+          scale:8%;
+        }
+        .copylink{
+          position: absolute;
+          top:-152px;
+          left:500px;
+          scale:6%;
+        }
 
     </style>
   </head>
   <body>
+    <img class="copyjot" src="/static/copy.png" alt="copy">
+    <!--<img class="copylink" src="/static/copy.png" alt="copy">-->
+    <div class="return">
+      <button id="returnBtn"><< Return</button>
+    </div>
     <h1>Jot #{{ request.url.split("/")[-1] | upper }}</h1>
     <div class="jotbox">
       <p class="name">{{ jot['name'] }}</p>
+      <p class="language">
+        {% if jot['language'] == 'c++' %}
+          <span class="circle cplusplus"></span>C++
+        {% else %}
+          <span class="circle {{jot['language'].lower()}}"></span>{{ jot['language'] }}
+        {% endif %}
+      </p>       
       {% set lines = jot['jotspace'].splitlines() %}
       {% for i in range(1, lines|length + 1) %}
+      <div class="jotspace">
         <pre class="jot">{{ lines[i-1] }}</pre>
       {% endfor %}
     </div>
+    </div>
     <script>
+      $(document).ready(function() {
+        const copyJot = document.querySelector('.copyjot');
+          copyJot.addEventListener('click', () => {
+            const jotspaceText = document.querySelector('.jotspace').innerText;
+            navigator.clipboard.writeText(jotspaceText)
+              .then(() => alert('Copied to clipboard!'))
+              .catch((error) => console.error(error));
+          });
+        $("#returnBtn").click(function(e) {
+          window.location.href = "http://localhost:5000";
+          e.preventDefault();
+        });
+      });
+
       document.getElementById("url-placeholder").textContent = window.location.href;
   </script>
   </body>
