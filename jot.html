@@ -16,6 +16,9 @@
         margin-top: 40px;
         margin-bottom: 40px;
       }
+      .content{
+        display:none;
+      }
       .return{
         position: absolute;
         margin-top: -20px;
@@ -30,14 +33,15 @@
           border-radius: 100px;
           cursor: pointer;
         }
-      .jotbox{
-        background-color: rgb(233, 230, 221);
-        border-radius: 10px;
-        border: 1px solid #7c7c7c;
-        box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.5);
-        margin:50px;
-        counter-reset: line-number;
-      }
+        .jotbox{
+          background-color: rgb(233, 230, 221);
+          border-radius: 10px;
+          border: 1px solid #7c7c7c;
+          box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.5);
+          margin:50px;
+          counter-reset: line-number;
+        }
+
       .name{
         text-align: center;
         font-weight: 600;
@@ -112,10 +116,26 @@
           left:500px;
           scale:6%;
         }
+        .password{
+          position: absolute;
+          font-size: 20px;
+          top:200px;
+          left:500px;
+        }
+        .hidden{
+          position: absolute;
+          display: none;
+        }
 
     </style>
   </head>
   <body>
+    <p class="hidden">{{ jot['password'] }}</p>
+    <div class="password">
+      <input type="password" id="password" placeholder="Password">
+      <button id="submitBtn">Submit</button>
+    </div>
+    <div class="content">
     <img class="copyjot" src="/static/copy.png" alt="copy">
     <!--<img class="copylink" src="/static/copy.png" alt="copy">-->
     <div class="return">
@@ -138,22 +158,47 @@
       {% endfor %}
     </div>
     </div>
+  </div>
     <script>
       $(document).ready(function() {
         const copyJot = document.querySelector('.copyjot');
-          copyJot.addEventListener('click', () => {
-            const jotspaceText = document.querySelector('.jotspace').innerText;
-            navigator.clipboard.writeText(jotspaceText)
-              .then(() => alert('Copied to clipboard!'))
-              .catch((error) => console.error(error));
+        copyJot.addEventListener('click', () => {
+          const jotspaceText = document.querySelector('.jotspace').innerText;
+          navigator.clipboard.writeText(jotspaceText)
+            .then(() => alert('Copied to clipboard!'))
+            .catch((error) => console.error(error));
+        });
+
+        
+          const password = document.getElementById('password')
+          const realpass = document.getElementById('hidden')
+          if (document.querySelector('.hidden').textContent.trim() === "none"){
+            $('.content').show();
+            $('.password').hide();
+          }
+          else{
+            $("#submitBtn").click(function() {
+            if (password.value === document.querySelector('.hidden').textContent.trim()) {
+              // Password is correct, show the jot
+              $('.content').show();
+              $('.password').hide();
+            } else {
+              // Password is incorrect, hide the jot and show an error message
+              $('.content').hide();
+              $('.password').show();
+              alert('Incorrect password');
+            }
           });
+        }
+
         $("#returnBtn").click(function(e) {
           window.location.href = "https://jotspace.vercel.app";
           e.preventDefault();
         });
+
+        $("#url-placeholder").text(window.location.href);
       });
 
-      document.getElementById("url-placeholder").textContent = window.location.href;
   </script>
   </body>
 </html>
