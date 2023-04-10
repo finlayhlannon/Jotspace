@@ -12,17 +12,17 @@
         <textarea class="jotspace" placeholder="Jot here"></textarea>
       </div>
       <div class="right">
-        <div class="form-container" action="/create_jot" method="post">
+        <form class="form-container" action="/create_jot" method="post">
           <input type="text" placeholder="Name" class="name">
-          <select>
-            <option value="txt">Text</option>
+          <select class="language">
+            <option value="Text">Text</option>
             <option value="Python">Python</option>
             <option value="Javascript">Javascript</option>
             <option value="HTML">HTML</option>
             <option value="CSS">CSS</option>
             <option value="Java">Java</option>
             <option value="PHP">PHP</option>
-            <option value="C++">C++</option>
+            <option value="cpp">C++</option>
           </select>
           <select>
             <option value="comments:on">Comments: on</option>
@@ -88,34 +88,36 @@
           </select>
           <input type="hidden" name="redirect_to" value="/jot/{{ randomnumber }}">
           <button class="submit">Jot</button>
-        </div>
+        </form>
       </div>
     </div>
     <script>
       $(document).ready(function() {
-  $(".submit").click(function(e) {
-    e.preventDefault();
+        $(".submit").click(function(e) {
+          e.preventDefault();
 
-    var name = $(".name").val();
-    var jotspace = $(".jotspace").val();
+          var name = $(".name").val();
+          var jotspace = $(".jotspace").val();
+          var language = $(".language").val();
 
-    if (name.trim() === "" || jotspace.trim() === "") {
-      alert("Please fill in both name and jotspace fields");
-    } else {
-      $.ajax({
-        type: "POST",
-        url: "/create_jot",
-        data: { name: name, jotspace: jotspace },
-        success: function(response) {
-          window.location.href = "/jot/" + response;
-        },
-        error: function(xhr) {
-          console.log(xhr.responseText);
-        }
+          if (name.trim() === "" || jotspace.trim() === "" || language.trim() === "") {
+            alert("Please fill in all fields");
+          } else {
+            $.ajax({
+              type: "POST",
+              url: "/create_jot",
+              data: { name: name, jotspace: jotspace, language: language },
+              success: function(response) {
+                window.location.href = "/jot/" + response;
+              },
+              error: function(xhr) {
+                console.log(xhr.responseText);
+              }
+            });
+          }
+        });
       });
-    }
-  });
-});
+
     </script>    
   </body>
 </html>
