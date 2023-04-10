@@ -29,8 +29,8 @@ body {
     }
 
     .jotspace {
-    height: 300px;
-    width: 100%;
+    height: 270px;
+    width: 97%;
     border: none;
     outline: none;
     font-size: 18px;
@@ -48,6 +48,9 @@ body {
     margin-left: 20px;
     }
     .name{
+        background-color: white;
+    }
+    .password{
         background-color: white;
     }
 
