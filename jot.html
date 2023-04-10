@@ -137,6 +137,13 @@
           position: absolute;
           display: none;
         }
+        .topic{
+          color: #7c7c7c;
+          font-size: 15px;
+          margin-left: 0px;
+          margin-top:-20px;
+          text-align: center;
+        }
 
     </style>
   </head>
@@ -156,6 +163,7 @@
     
     <div class="jotbox">
       <p class="name">{{ jot['name'] }}</p>
+      <p class="topic">{{ jot['topic'] }}</p>
       <p class="language">
         {% if jot['language'] == 'c++' %}
           <span class="circle cplusplus"></span>C++
