@@ -163,7 +163,11 @@
     
     <div class="jotbox">
       <p class="name">{{ jot['name'] }}</p>
-      <p class="topic">{{ jot['topic'] }}</p>
+      {% if jot['topic'] != 'No topic' %}
+        <p class="topic">{{ jot['topic'] }}</p>
+      {% else %}
+        <p class="topic"></p>
+      {% endif %}
       <p class="language">
         {% if jot['language'] == 'c++' %}
           <span class="circle cplusplus"></span>C++
