@@ -1,10 +1,9 @@
-
-
 import random
 import string
-from flask import Flask, request, render_template, jsonify, redirect
+from flask import Flask, request, render_template, jsonify
 
 app = Flask(__name__, template_folder=".")
+
 
 # Define a dictionary to store the jots
 jots = {}
@@ -28,8 +27,11 @@ def generate_url():
 def create_jot():
     name = request.form['name']
     jotspace = request.form['jotspace']
+    language = request.form['language']
     url = generate_url()
-    jots[url] = {'name': name, 'jotspace': jotspace}
+    if language == 'cpp':
+        language = 'c++'
+    jots[url] = {'name': name, 'language' : language, 'jotspace': jotspace}
     print(url)  # Debugging line
     return url
 
@@ -41,7 +43,7 @@ def view_jot(url):
     if jot:
         return render_template('jot.html', jot=jot)
     else:
-        return 'Jot not found'
+        return render_template('error.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
