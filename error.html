@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Jot</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+          background-color: #f8f6f7;
+          font-family: Arial, sans-serif;
+          font-size: 40px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          margin: 0;
+        }
+        h1 {
+          text-align: center;
+        }
+        .return {
+          margin-top: 30px;
+          text-align: center;
+        }
+        button {
+          background-color: #5750a0;
+          color: white;
+          font-size: 20px;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 100px;
+          cursor: pointer;
+        }
+      </style>
+  </head>
+  <body>
+    <h1>ERROR: Jot not found :/</h1>
+    <div class="return">
+      <button>Return to homepage</button>
+    </div>
+    <script>
+      $(document).ready(function() {
+        $(".return").click(function(e) {
+          window.location.href = "http://localhost:5000";
+          e.preventDefault();
+        });
+      });
+    </script>
+  </body>
+</html>
