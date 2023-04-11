@@ -15,7 +15,7 @@
       <div class="right">
         <form class="form-container" action="/create_jot" method="post">
           <input type="text" placeholder="Name" class="name">
-          <input type="text" placeholder="Password (type 'none' for no password)" class="password" name="password" autocomplete="off">
+          <input type="text" placeholder="Password (optional)" class="password" name="password" autocomplete="off">
           <select class="language">
             <option value="Text">Text</option>
             <option value="Python">Python</option>
@@ -102,7 +102,7 @@
     var topic = $(".topic").val();
     var password = $(".password").val();
 
-    if (name.trim() === "" || jotspace.trim() === "" || language.trim() === "" || topic.trim() === "" || password.trim() === "") {
+    if (name.trim() === "" || jotspace.trim() === "" || language.trim() === "" || topic.trim() === "") {
       alert("Please fill in all fields");
     } else {
       $.ajax({
