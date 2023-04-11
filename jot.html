@@ -88,13 +88,13 @@
             background-color: rgb(243, 186, 0);
         }
         .css {
-            background-color: orange;
+            background-color: rgb(79, 177, 216);
         }
         .html {
             background-color: red;
         }
         .cplusplus {
-            background-color: rgb(79, 177, 216);
+            background-color: orange;
           }
         .text{
           background-color: black;
@@ -196,7 +196,7 @@
         const password = document.getElementById('password');
         const realpass = document.getElementById('hidden');
 
-        if (document.querySelector('.hidden').textContent.trim() === "none") {
+        if (document.querySelector('.hidden').textContent.trim() === "") {
           $('.content').show();
           $('.password').hide();
         } else {
