@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Jotspace</title>
+    <link rel="stylesheet" href="static/style.css"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="icon" type="image/png" href="static/favicon.png">
+  </head>
+  <body>
+    <h1>Create a jot</h1>
+    <div class="container">
+      <div class="left">
+        <textarea class="jotspace" placeholder="Jot here"></textarea>
+      </div>
+      <div class="right">
+        <form class="form-container" action="/create_jot" method="post">
+          <input type="text" placeholder="Name" class="name">
+          <input type="text" placeholder="Password (optional)" class="password" name="password" autocomplete="off">
+          <select class="language">
+            <option value="Text">Text</option>
+            <option value="Python">Python</option>
+            <option value="Javascript">Javascript</option>
+            <option value="HTML">HTML</option>
+            <option value="CSS">CSS</option>
+            <option value="Java">Java</option>
+            <option value="PHP">PHP</option>
+            <option value="cpp">C++</option>
+          </select>
+          <!--<select>
+            <option value="comments:on">Comments: on</option>
+            <option value="comments:off">Comments: off</option>
+          </select>-->
+          <!--<select class="privacy">
+            <option value="public">Public</option>
+            <option value="private">Private</option>
+          </select>-->
+          <select class="topic">
+            <option value="No topic">No topic</option>
+            <option value="Augmented reality">Augmented reality</option>
+            <option value="Artificial intelligence">Artificial intelligence</option>
+            <option value="Big data">Big data</option>
+            <option value="Bioinformatics">Bioinformatics</option>
+            <option value="Blockchain">Blockchain</option>
+            <option value="Chatbots">Chatbots</option>
+            <option value="Cloud computing">Cloud computing</option>
+            <option value="Computer graphics">Computer graphics</option>
+            <option value="Computer vision">Computer vision</option>
+            <option value="Computing education">Computing education</option>
+            <option value="Cybersecurity">Cybersecurity</option>
+            <option value="Data analysis">Data analysis</option>
+            <option value="Data science">Data science</option>
+            <option value="Database systems">Database systems</option>
+            <option value="Deep learning">Deep learning</option>
+            <option value="Distributed systems">Distributed systems</option>
+            <option value="Embedded systems">Embedded systems</option>
+            <option value="Evolutionary algorithms">Evolutionary algorithms</option>
+            <option value="Game development">Game development</option>
+            <option value="Human-computer interaction">Human-computer interaction</option>
+            <option value="Information retrieval">Information retrieval</option>
+            <option value="Information systems">Information systems</option>
+            <option value="Intelligent systems">Intelligent systems</option>
+            <option value="IoT (Internet of Things)">IoT (Internet of Things)</option>
+            <option value="Knowledge representation">Knowledge representation</option>
+            <option value="Logic programming">Logic programming</option>
+            <option value="Machine learning">Machine learning</option>
+            <option value="Mathematical software">Mathematical software</option>
+            <option value="Mobile development">Mobile development</option>
+            <option value="Multimedia">Multimedia</option>
+            <option value="Natural language processing">Natural language processing</option>
+            <option value="Neural networks">Neural networks</option>
+            <option value="Networks">Networks</option>
+            <option value="Operating systems">Operating systems</option>
+            <option value="Parallel computing">Parallel computing</option>
+            <option value="Programming languages">Programming languages</option>
+            <option value="Quantum computing">Quantum computing</option>
+            <option value="Robotics">Robotics</option>
+            <option value="Security and privacy">Security and privacy</option>
+            <option value="Semantic web">Semantic web</option>
+            <option value="Simulation">Simulation</option>
+            <option value="Social computing">Social computing</option>
+            <option value="Software engineering">Software engineering</option>
+            <option value="Software testing">Software testing</option>
+            <option value="Speech and audio processing">Speech and audio processing</option>
+            <option value="Ubiquitous computing">Ubiquitous computing</option>
+            <option value="Virtual reality">Virtual reality</option>
+            <option value="Web development">Web development</option>
+            <option value="Wireless networks">Wireless networks</option>
+          </select>
+          <input type="hidden" name="redirect_to" value="/jot/{{ randomnumber }}">
+          <button class="submit">Jot</button>
+        </form>
+      </div>
+    </div>
+    <script>
+      $(document).ready(function() {
+  $(".submit").click(function(e) {
+    e.preventDefault();
+
+    var name = $(".name").val();
+    var jotspace = $(".jotspace").val();
+    var language = $(".language").val();
+    var topic = $(".topic").val();
+    var password = $(".password").val();
+
+    if (name.trim() === "" || jotspace.trim() === "" || language.trim() === "" || topic.trim() === "") {
+      alert("Please fill in all fields");
+    } else {
+      $.ajax({
+        type: "POST",
+        url: "/create_jot",
+        data: { name: name, jotspace: jotspace, language: language, topic: topic, password: password },
+        success: function(response) {
+          window.location.href = "/jot/" + response;
+        },
+        error: function(xhr) {
+          console.log(xhr.responseText);
+        }
+      });
+    }
+  });
+});
+
+
+    </script>    
+  </body>
+</html>
