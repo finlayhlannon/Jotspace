@@ -4,6 +4,7 @@
     { "src": "main.py", "use": "@vercel/python" }
   ],
   "routes": [
+    { "src": "/create", "status": 301, "headers": { "Location": "/create.html" } },
     { "src": "/(.*)", "dest": "/main.py" }
   ]
 }
