@@ -47,7 +47,7 @@ def index():
 # Define the create route
 @app.route('/create')
 def create():
-    return render_template('create.html')
+    return render_template('create')
 
 if __name__ == '__main__':
     app.run(debug=True)
