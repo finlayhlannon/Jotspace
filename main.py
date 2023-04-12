@@ -1,6 +1,6 @@
 import random
 import string
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify, redirect, url_for
 
 app = Flask(__name__, template_folder=".")
 
@@ -43,6 +43,11 @@ def view_jot(url):
 @app.route('/')
 def index():
     return render_template('index.html')
+
+# Define the create route
+@app.route('/create')
+def create():
+    return render_template('create.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
