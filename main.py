@@ -3,6 +3,7 @@ import string
 from flask import Flask, request, render_template, jsonify, redirect, url_for
 
 app = Flask(__name__, template_folder=".")
+view_count = 0
 
 # Define a dictionary to store the jots
 jots = {}
@@ -42,12 +43,11 @@ def view_jot(url):
 # Define the index route
 @app.route('/')
 def index():
-    return render_template('index.html')
+    global view_count  # Declare view_count as a global variable
+    view_count += 1
+    #print(view_count)
+    return render_template('index.html', view_count=view_count)
 
-# Define the create route
-@app.route('/create')
-def create():
-    return render_template('create')
 
 if __name__ == '__main__':
     app.run(debug=True)
