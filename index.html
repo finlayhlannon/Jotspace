@@ -94,7 +94,8 @@
           <input type="hidden" name="redirect_to" value="/jot/{{ randomnumber }}">
           <button class="submit">Jot</button>
         </form>
-        <p class="views">monthly views: {{mview_count}}‎ ‎ ‎ ‎ ‎ ||‎ ‎ ‎ ‎ ‎ weekly views: {{wview_count}}‎ ‎ ‎ ‎ ‎ ||‎ ‎ ‎ ‎ ‎ daily views: {{view_count}}</p>
+        <p class="views">monthly views: {% if mview_count < 1000 %}{{ mview_count }}{% else %}{{ mview_count // 1000 }}k{% endif %} ‎ ‎ ‎ ‎ ||‎ ‎ ‎ ‎  weekly views: {% if wview_count < 1000 %}{{ wview_count }}{% else %}{{ wview_count // 1000 }}k{% endif %}‎ ‎ ‎ ‎ ‎  ||‎ ‎ ‎ ‎ ‎  daily views: {% if view_count < 1000 %}{{ view_count }}{% else %}{{ view_count // 1000 }}k{% endif %}</p>
+
       </div>
       </div>
     </div>
