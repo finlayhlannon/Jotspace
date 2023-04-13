@@ -1,9 +1,13 @@
 import random
 import string
 from flask import Flask, request, render_template, jsonify, redirect, url_for
+import time
 
 app = Flask(__name__, template_folder=".")
 view_count = 0
+mview_count = -1
+wview_count = -1
+timer = 0
 
 # Define a dictionary to store the jots
 jots = {}
@@ -43,10 +47,22 @@ def view_jot(url):
 # Define the index route
 @app.route('/')
 def index():
-    global view_count  # Declare view_count as a global variable
+    global view_count
+    global mview_count
+    global wview_count
+    global timer
     view_count += 1
-    #print(view_count)
-    return render_template('index.html', view_count=view_count)
+    mview_count += 1
+    wview_count += 1
+    current_time = int(time.time())
+    if current_time - timer >= 86400:  # 86400 seconds in 24 hours
+        view_count = 0
+        timer = current_time
+    if current_time - timer >= 604800:  # 604800 seconds in 7 days
+        wview_count = 0
+    if current_time - timer >= 2592000:  # 2592000 seconds in 30 days
+        mview_count = 0
+    return render_template('index.html', view_count=view_count, mview_count=mview_count, wview_count=wview_count)
 
 
 if __name__ == '__main__':
