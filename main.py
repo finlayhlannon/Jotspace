@@ -5,9 +5,11 @@ import time
 
 app = Flask(__name__, template_folder=".")
 view_count = 0
-mview_count = -1
-wview_count = -1
-timer = 0
+mview_count = 0
+wview_count = 0
+view_timer = 0
+mview_timer = 0
+wview_timer = 0
 
 # Define a dictionary to store the jots
 jots = {}
@@ -50,18 +52,23 @@ def index():
     global view_count
     global mview_count
     global wview_count
-    global timer
+    global view_timer
+    global mview_timer
+    global wview_timer
+    current_time = int(time.time())
+    if current_time - view_timer >= 10:  # 86400 seconds in 24 hours
+        view_count = 0
+        view_timer = current_time
+    if current_time - wview_timer >= 20:  # 604800 seconds in 7 days
+        wview_count = 0
+        wview_timer = current_time
+    if current_time - mview_timer >= 40:  # 2592000 seconds in 30 days
+        mview_count = 0
+        mview_timer = current_time
+
     view_count += 1
     mview_count += 1
     wview_count += 1
-    current_time = int(time.time())
-    if current_time - timer >= 86400:  # 86400 seconds in 24 hours
-        view_count = 0
-        timer = current_time
-    if current_time - timer >= 604800:  # 604800 seconds in 7 days
-        wview_count = 0
-    if current_time - timer >= 2592000:  # 2592000 seconds in 30 days
-        mview_count = 0
     return render_template('index.html', view_count=view_count, mview_count=mview_count, wview_count=wview_count)
 
 
