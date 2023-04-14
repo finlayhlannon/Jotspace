@@ -63,6 +63,10 @@ def index():
     global view_count
     global mview_count
     global wview_count
+    global view_timer
+    global mview_timer
+    global wview_timer
+    global view_timer  # Add global keyword here
     current_time = int(time.time())
     if current_time - view_timer >= 86400:  # 86400 seconds in 24 hours
         view_count = 0
@@ -77,7 +81,6 @@ def index():
     view_count += 1
     mview_count += 1
     wview_count += 1
-
 
     return render_template('index.html', view_count=view_count, mview_count=mview_count, wview_count=wview_count)
 
