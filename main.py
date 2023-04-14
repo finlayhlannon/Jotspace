@@ -7,6 +7,7 @@ app = Flask(__name__, template_folder=".")
 view_count = 0
 mview_count = 0
 wview_count = 0
+view_timer = int(time.time())
 view_timer = 0
 mview_timer = 0
 wview_timer = 0
