@@ -46,15 +46,22 @@ def view_jot(url):
     else:
         return render_template('error.html')
 
+# Update the view timers outside of the index route
+@app.before_first_request
+def update_timers():
+    global view_timer
+    global mview_timer
+    global wview_timer
+    view_timer = int(time.time())
+    mview_timer = int(time.time())
+    wview_timer = int(time.time())
+
 # Define the index route
 @app.route('/')
 def index():
     global view_count
     global mview_count
     global wview_count
-    global view_timer
-    global mview_timer
-    global wview_timer
     current_time = int(time.time())
     if current_time - view_timer >= 86400:  # 86400 seconds in 24 hours
         view_count = 0
@@ -68,7 +75,8 @@ def index():
 
     view_count += 1
     mview_count += 1
-    wview_count += 1
+    wview_count += 
+
 
     return render_template('index.html', view_count=view_count, mview_count=mview_count, wview_count=wview_count)
 
