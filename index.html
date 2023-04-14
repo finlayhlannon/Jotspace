@@ -10,9 +10,10 @@
     <div class="homepage">
       <h1 class="big">Welcome to Jotspace</h1>
       <button id="submitBtn" class="openbtn">Create a Jot</button>
+      <p class="views">monthly views: {% if mview_count < 1000 %}{{ mview_count }}{% else %}{{ mview_count // 1000 }}k{% endif %} ‎ ‎ ‎ ‎ ||‎ ‎ ‎ ‎  weekly views: {% if wview_count < 1000 %}{{ wview_count }}{% else %}{{ wview_count // 1000 }}k{% endif %}‎ ‎ ‎ ‎ ‎  ||‎ ‎ ‎ ‎ ‎  daily views: {% if view_count < 1000 %}{{ view_count }}{% else %}{{ view_count // 1000 }}k{% endif %}</p>
     </div>
     <div class="content">
-    <h1>Create a jot</h1>
+      <h1>Create a jot</h1>
     <div class="container">
       <div class="left">
         <textarea class="jotspace" placeholder="Jot here"></textarea>
