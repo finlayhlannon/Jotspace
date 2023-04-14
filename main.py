@@ -71,12 +71,15 @@ def index():
     if current_time - view_timer >= 86400:  # 86400 seconds in 24 hours
         view_count = 0
         view_timer = current_time
+        print("daily has reset to 0")
     if current_time - wview_timer >= 604800:  # 604800 seconds in 7 days
         wview_count = 0
         wview_timer = current_time
+        print("weekly has reset to 0")
     if current_time - mview_timer >= 2592000:  # 2592000 seconds in 30 days
         mview_count = 0
         mview_timer = current_time
+        print("monthly has reset to 0")
 
     view_count += 1
     mview_count += 1
