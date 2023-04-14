@@ -75,7 +75,7 @@ def index():
 
     view_count += 1
     mview_count += 1
-    wview_count += 
+    wview_count += 1
 
 
     return render_template('index.html', view_count=view_count, mview_count=mview_count, wview_count=wview_count)
