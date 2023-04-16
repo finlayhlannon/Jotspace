@@ -36,16 +36,16 @@ def create_jot():
         language = 'c++'
     jots[url] = {'name': name, 'language' : language, 'jotspace': jotspace, 'topic': topic, 'password': password}
     print(url)  # Debugging line
-    return url
+    return url, 200, {'Cache-Control': 'no-cache'}
 
 # Define the route to view a jot
 @app.route('/jot/<url>')
 def view_jot(url):
     jot = jots.get(url)
     if jot:
-        return render_template('jot.html', jot=jot)
+        return render_template('jot.html', jot=jot), 200, {'Cache-Control': 'no-cache'}
     else:
-        return render_template('error.html')
+        return render_template('error.html'), 404, {'Cache-Control': 'no-cache'}
 
 # Update the view timers outside of the index route
 @app.before_first_request
@@ -68,10 +68,11 @@ def index():
     global wview_timer
     global view_timer  # Add global keyword here
     current_time = int(time.time())
+    print(current_time - view_timer)
     if current_time - view_timer >= 86400:  # 86400 seconds in 24 hours
         view_count = 0
         view_timer = current_time
-        print("daily has reset to 0")
+        
     if current_time - wview_timer >= 604800:  # 604800 seconds in 7 days
         wview_count = 0
         wview_timer = current_time
@@ -85,8 +86,7 @@ def index():
     mview_count += 1
     wview_count += 1
 
-    return render_template('index.html', view_count=view_count, mview_count=mview_count, wview_count=wview_count)
-
+    return render_template('index.html', view_count=view_count, mview_count=mview_count, wview_count=wview_count), 200, {'Cache-Control': 'no-cache'}
 
 if __name__ == '__main__':
     app.run(debug=True)
