@@ -161,6 +161,37 @@ body {
       color:#6e6e6e;
 
     }
+    @keyframes moveDragon {
+      0% {
+        transform: translate(0, 0);
+      }
+      25% {
+        transform: translate(50px, 50px);
+      }
+      50% {
+        transform: translate(100px, -50px);
+      }
+      75% {
+        transform: translate(-50px, -50px);
+      }
+      100% {
+        transform: translate(0, 0);
+      }
+    }
+    
+    .dragon {
+      position: absolute;
+      scale: 40%;
+      top: -350px;
+      left: -150px;
+      z-index: -1000;
+      opacity: 80%;
+      animation-name: moveDragon;
+      animation-duration: 4s;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+    
 
 
     /* For screens with width up to 768px (phones) */
