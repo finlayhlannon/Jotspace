@@ -146,9 +146,10 @@ body {
         margin: 20px;
         width: 800px;
         margin-left: 100px;
-        white-space: pre-wrap; /* Enables text wrapping */
-        word-wrap: break-word; /* Ensures long words wrap */
-        overflow-wrap: break-word; /* Adds additional compatibility for word wrapping */
+        white-space: pre-wrap !important; /* Ensures wrapping with preserved whitespace */
+        word-wrap: break-word !important; /* Ensures wrapping of long unbroken words */
+        overflow-wrap: break-word !important; /* Additional compatibility */
+        overflow: hidden; /* Prevents text overflow visually */
     }
 
     .jotname{
