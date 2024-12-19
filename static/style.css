@@ -181,6 +181,14 @@ select:focus {
         height: 200px;
         width: 89%;
     }
+
+    .name {
+        width: 90% !important;
+    }
+    
+    .password {
+        width: 90% !important;
+    }
     
     h1 {
         font-size: 2rem;
