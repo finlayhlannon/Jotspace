@@ -138,18 +138,19 @@ body {
     }
 
 /*For stream.html*/
-    .jot{
+    .jot {
         background-color: #a2ddba;
         border-radius: 10px;
         border: 1px solid #979797;
         box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.5);
-        margin:20px;
+        margin: 20px;
         width: 800px;
-        margin-left:100px;
+        margin-left: 100px;
         white-space: pre-wrap; /* Enables text wrapping */
-        word-wrap: break-word;
-
+        word-wrap: break-word; /* Ensures long words wrap */
+        overflow-wrap: break-word; /* Adds additional compatibility for word wrapping */
     }
+
     .jotname{
         margin-left: 10px;
     }
