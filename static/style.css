@@ -75,7 +75,7 @@ body {
 
 .jotspace {
     height: 270px;
-    width: 90%;
+    width: 96%;
     border: 1px solid #E5E7EB;
     border-radius: 8px;
     padding: 1rem;
@@ -171,6 +171,7 @@ select:focus {
     
     .jotspace {
         height: 200px;
+        width: 90%;
     }
     
     h1 {
