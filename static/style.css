@@ -146,6 +146,8 @@ body {
         margin:20px;
         width: 800px;
         margin-left:100px;
+        white-space: pre-wrap; /* Enables text wrapping */
+        word-wrap: break-word;
 
     }
     .jotname{
