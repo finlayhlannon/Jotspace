@@ -53,9 +53,11 @@
         margin-top:0px;
         margin-bottom:0px;
         counter-increment: line-number;
-        white-space: pre-wrap !important;
-        word-wrap: break-word !important;
-        overflow-wrap: break-word !important;
+        white-space: nowrap; /* Prevent text from wrapping */
+        overflow-x: auto; /* Enable horizontal scrolling */
+        overflow-y: hidden; /* Hide vertical scrolling */white-space: nowrap; /* Prevent text from wrapping */
+        overflow-x: auto; /* Enable horizontal scrolling */
+        overflow-y: hidden; /* Hide vertical scrolling */
       }
       .jot::before {
         content: counter(line-number) ". ";
