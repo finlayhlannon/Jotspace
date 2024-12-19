@@ -4,18 +4,19 @@ from flask import Flask, request, render_template, jsonify, redirect, url_for
 import time
 
 app = Flask(__name__, template_folder=".")
+
+# View counts and timers
 view_count = 0
 mview_count = 0
 wview_count = 0
 view_timer = int(time.time())
-view_timer = 0
 mview_timer = 0
 wview_timer = 0
 
-# Define a dictionary to store the jots
+# Dictionary to store jots
 jots = {}
 
-# Define a function to generate a unique URL
+# Function to generate a unique URL
 def generate_url():
     chars = string.ascii_lowercase + string.digits
     url = ''.join(random.choice(chars) for _ in range(6))
@@ -23,7 +24,7 @@ def generate_url():
         url = ''.join(random.choice(chars) for _ in range(6))
     return url
 
-# Define the route to create a jot
+# Route to create a jot
 @app.route('/create_jot', methods=['POST'])
 def create_jot():
     name = request.form['name']
@@ -32,13 +33,15 @@ def create_jot():
     topic = request.form['topic']
     password = request.form['password']
     url = generate_url()
+
     if language == 'cpp':
         language = 'c++'
-    jots[url] = {'name': name, 'language' : language, 'jotspace': jotspace, 'topic': topic, 'password': password}
+
+    jots[url] = {'name': name, 'language': language, 'jotspace': jotspace, 'topic': topic, 'password': password}
     print(url)  # Debugging line
     return url, 200, {'Cache-Control': 'no-cache'}
 
-# Define the route to view a jot
+# Route to view a jot
 @app.route('/jot/<url>')
 def view_jot(url):
     jot = jots.get(url)
@@ -57,7 +60,7 @@ def update_timers():
     mview_timer = int(time.time())
     wview_timer = int(time.time())
 
-# Define the index route
+# Index route
 @app.route('/')
 def index():
     global view_count
@@ -66,27 +69,38 @@ def index():
     global view_timer
     global mview_timer
     global wview_timer
-    global view_timer  # Add global keyword here
     current_time = int(time.time())
-    print(current_time - view_timer)
+
+    # Reset counters after specific intervals
     if current_time - view_timer >= 86400:  # 86400 seconds in 24 hours
         view_count = 0
         view_timer = current_time
-        
+
     if current_time - wview_timer >= 604800:  # 604800 seconds in 7 days
         wview_count = 0
         wview_timer = current_time
         print("weekly has reset to 0")
+
     if current_time - mview_timer >= 2592000:  # 2592000 seconds in 30 days
         mview_count = 0
         mview_timer = current_time
         print("monthly has reset to 0")
 
+    # Increment view counters
     view_count += 1
     mview_count += 1
     wview_count += 1
 
-    return render_template('index.html', view_count=view_count, mview_count=mview_count, wview_count=wview_count), 200, {'Cache-Control': 'no-cache'}
+    # Pass timestamp to template for cache-busting
+    return render_template('index.html', view_count=view_count, mview_count=mview_count, wview_count=wview_count, timestamp=current_time), 200, {'Cache-Control': 'no-cache'}
+
+# Cache-Control header to ensure fresh content
+@app.after_request
+def add_cache_control(response):
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    return response
 
 if __name__ == '__main__':
     app.run(debug=True)
