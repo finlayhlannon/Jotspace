@@ -1,256 +1,282 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>Jot</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="icon" type="image/png" href="copy.png">
     <style>
-      body {
-        background-color: #f8f6f7;
-        font-family: Arial, sans-serif;
-      }
-      h1 {
-        text-align: center;
-        font-size: 32px;
-        color: #5750a0;
-        margin-top: 40px;
-        margin-bottom: 40px;
-      }
-      .content{
-        display:none;
-      }
-      .return{
-        position: absolute;
-        margin-top: -85px;
-        margin-left:10px;
-        text-align: center;
-      }
-      button {
-          background-color: #5750a0;
-          color: white;
-          font-size: 15px;
-          padding: 10px 20px;
-          border: none;
-          border-radius: 100px;
-          cursor: pointer;
-        }
-        .jotbox{
-          background-color: rgb(233, 230, 221);
-          border-radius: 10px;
-          border: 1px solid #7c7c7c;
-          box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.5);
-          margin:50px;
-          counter-reset: line-number;
+        body {
+            background: linear-gradient(135deg, #EEF2FF 0%, #FAE8FF 50%, #FDF2F8 100%);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
         }
 
-      .name{
-        text-align: center;
-        font-weight: 600;
-        font-size: 30px;
-      }
-      .jot{
-        margin-left: 20px;
-        margin-top:0px;
-        margin-bottom:0px;
-        counter-increment: line-number;
-        overflow-x: hidden; /* Enable horizontal scrolling */
-        overflow-y: hidden; /* Hide vertical scrolling */
-        white-space: pre; /* Preserve formatting, including line breaks */
-      }
-      .jot::before {
-        content: counter(line-number) ". ";
-        display: inline-block;
-        font-weight: bold;
-        margin-right: 10px;
-        width: 30px;
-        text-align: right;
-        color:#868686
-      }
-      .jotspace{
-        margin-bottom:20px;
-      }
-      .language{
-        position: absolute;
-        top:130px;
-        left:1150px;
-      }
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            background: linear-gradient(to right, #7C3AED, #EC4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            margin: 2rem 0;
+        }
 
-      .circle {
+        .content {
+            display: none;
+            padding: 2rem;
+        }
+
+        .return {
+            position: absolute;
+            margin-top: -85px;
+            margin-left: 10px;
+            text-align: center;
+        }
+
+        button {
+            background: linear-gradient(to right, #7C3AED, #EC4899);
+            color: white;
+            border: none;
+            border-radius: 9999px;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+        }
+
+        .jotbox {
+            background-color: white;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin: 50px;
+            padding: 2rem;
+            counter-reset: line-number;
+        }
+
+        .name {
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.875rem;
+            color: #1F2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .jot {
+            margin-left: 20px;
+            margin-top: 0;
+            margin-bottom: 0;
+            counter-increment: line-number;
+            overflow-x: hidden;
+            overflow-y: hidden;
+            white-space: pre;
+            color: #1F2937;
+            font-size: 1rem;
+        }
+
+        .jot::before {
+            content: counter(line-number) ". ";
+            display: inline-block;
+            font-weight: bold;
+            margin-right: 10px;
+            width: 30px;
+            text-align: right;
+            color: #6B7280;
+        }
+
+        .jotspace {
+            margin-bottom: 20px;
+        }
+
+        .language {
+            position: absolute;
+            top: 130px;
+            right: 50px;
+            color: #6B7280;
+        }
+
+        .circle {
             position: absolute;
             width: 10px;
             height: 10px;
             border-radius: 50%;
             display: inline-block;
             left: -15px;
-            top:2px;
-        }
-        .python {
-            background-color: blue;
-        }
-        .javascript {
-            background-color: rgb(243, 186, 0);
-        }
-        .css {
-            background-color: rgb(79, 177, 216);
-        }
-        .html {
-            background-color: red;
-        }
-        .cplusplus {
-            background-color: orange;
-          }
-        .text{
-          background-color: black;
-        }
-        .php{
-          background-color: rgb(144, 44, 175);
-        }
-        .java{
-          background-color: rgb(126, 82, 25);
-        }
-        .copyjot{
-          position: absolute;
-          top:-30px;
-          left:-200px;
-          scale:8%;
-        }
-        .copylink{
-          position: absolute;
-          top:-152px;
-          left:500px;
-          scale:6%;
-        }
-        .password{
-          position: absolute;
-          font-size: 20px;
-          top:300px;
-          left:450px;
-          
-        }
-        .passwordinput{
-          background-color: #fff;
-          border-radius: 100px;
-          border: 1px solid #e6e6e6;
-          box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
-          margin-left: 20px;
-          height: 35px;
-          width: 300px;
-        }
-        .hidden{
-          position: absolute;
-          display: none;
-        }
-        .topic{
-          color: #7c7c7c;
-          font-size: 15px;
-          margin-left: 0px;
-          margin-top:-20px;
-          text-align: center;
+            top: 2px;
+            transition: all 0.3s ease;
         }
 
-        @media (max-width: 1200px) {
-          body {
-            font-size: 34px; /* Adjust font size for smaller screens */
-          }
-          .circle{
-            width: 25px;
-            height: 25px;
-            top:5px;
-            left:-40px;
-          }
-          .language{
-            left:80vw;
-          }
-          .password{
-            left:30vw;
-          }
+        .python { background-color: #3B82F6; }
+        .javascript { background-color: #F59E0B; }
+        .css { background-color: #06B6D4; }
+        .html { background-color: #EF4444; }
+        .cplusplus { background-color: #F97316; }
+        .text { background-color: #111827; }
+        .php { background-color: #8B5CF6; }
+        .java { background-color: #92400E; }
+
+        .password {
+            position: absolute;
+            font-size: 1.25rem;
+            top: 300px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            align-items: center;
         }
 
+        .passwordinput {
+            background-color: white;
+            border-radius: 9999px;
+            border: 1px solid #E5E7EB;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            width: 300px;
+            transition: all 0.3s ease;
+        }
+
+        .passwordinput:focus {
+            outline: none;
+            border-color: #7C3AED;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+
+        .topic {
+            color: #6B7280;
+            font-size: 1rem;
+            margin-top: -0.5rem;
+            text-align: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 1rem;
+            }
+
+            .jotbox {
+                margin: 20px;
+                padding: 1rem;
+            }
+
+            .circle {
+                width: 8px;
+                height: 8px;
+            }
+
+            .language {
+                right: 20px;
+            }
+
+            .password {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .passwordinput {
+                width: 200px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .name {
+                font-size: 1.5rem;
+            }
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <p class="hidden">{{ jot['password'] }}</p>
     <div class="password">
-      <input type="password" id="password" placeholder="Password" class="passwordinput">
-      <button id="submitBtn">Submit</button>
+        <input type="password" id="password" placeholder="Password" class="passwordinput">
+        <button id="submitBtn">Submit</button>
     </div>
     <h1>Jot #{{ request.url.split("/")[-1] | upper }}</h1>
     <div class="content">
-    <img class="copyjot" src="/static/copy.png" alt="copy">
-    <!--<img class="copylink" src="/static/copy.png" alt="copy">-->
-    <div class="return">
-      <button id="returnBtn"><< Return</button>
+        <img class="copyjot" src="/static/copy.png" alt="copy">
+        <div class="return">
+            <button id="returnBtn"><< Return</button>
+        </div>
+        
+        <div class="jotbox">
+            <p class="name">{{ jot['name'] }}</p>
+            {% if jot['topic'] != 'No topic' %}
+                <p class="topic">{{ jot['topic'] }}</p>
+            {% else %}
+                <p class="topic"></p>
+            {% endif %}
+            <p class="language">
+                {% if jot['language'] == 'c++' %}
+                    <span class="circle cplusplus"></span>C++
+                {% else %}
+                    <span class="circle {{jot['language'].lower()}}"></span>{{ jot['language'] }}
+                {% endif %}
+            </p>       
+            {% set lines = jot['jotspace'].splitlines() %}
+            {% for i in range(1, lines|length + 1) %}
+            <div class="jotspace">
+                <pre class="jot">{{ lines[i-1] }}</pre>
+            </div>
+            {% endfor %}
+        </div>
     </div>
-    
-    <div class="jotbox">
-      <p class="name">{{ jot['name'] }}</p>
-      {% if jot['topic'] != 'No topic' %}
-        <p class="topic">{{ jot['topic'] }}</p>
-      {% else %}
-        <p class="topic"></p>
-      {% endif %}
-      <p class="language">
-        {% if jot['language'] == 'c++' %}
-          <span class="circle cplusplus"></span>C++
-        {% else %}
-          <span class="circle {{jot['language'].lower()}}"></span>{{ jot['language'] }}
-        {% endif %}
-      </p>       
-      {% set lines = jot['jotspace'].splitlines() %}
-      {% for i in range(1, lines|length + 1) %}
-      <div class="jotspace">
-        <pre class="jot">{{ lines[i-1] }}</pre>
-      {% endfor %}
-    </div>
-    </div>
-  </div>
     <script>
-      $(document).ready(function() {
-        const copyJot = document.querySelector('.copyjot');
-        copyJot.addEventListener('click', () => {
-          const jotspaceText = document.querySelector('.jotspace').innerText;
-          navigator.clipboard.writeText(jotspaceText)
-            .then(() => alert('Copied to clipboard!'))
-            .catch((error) => console.error(error));
-        });
+        $(document).ready(function() {
+            const copyJot = document.querySelector('.copyjot');
+            copyJot.addEventListener('click', () => {
+                const jotspaceText = document.querySelector('.jotspace').innerText;
+                navigator.clipboard.writeText(jotspaceText)
+                    .then(() => alert('Copied to clipboard!'))
+                    .catch((error) => console.error(error));
+            });
 
-        const password = document.getElementById('password');
-        const realpass = document.getElementById('hidden');
-
-        if (document.querySelector('.hidden').textContent.trim() === "") {
-          $('.content').show();
-          $('.password').hide();
-        } else {
-          const submitBtn = document.getElementById('submitBtn');
-          const checkPassword = function() {
-            if (password.value === document.querySelector('.hidden').textContent.trim()) {
-              // Password is correct, show the jot
-              $('.content').show();
-              $('.password').hide();
+            if (document.querySelector('.hidden').textContent.trim() === "") {
+                $('.content').show();
+                $('.password').hide();
             } else {
-              // Password is incorrect, hide the jot and show an error message
-              $('.content').hide();
-              $('.password').show();
-              alert('Incorrect password');
+                const submitBtn = document.getElementById('submitBtn');
+                const password = document.getElementById('password');
+                
+                const checkPassword = function() {
+                    if (password.value === document.querySelector('.hidden').textContent.trim()) {
+                        $('.content').show();
+                        $('.password').hide();
+                    } else {
+                        $('.content').hide();
+                        $('.password').show();
+                        alert('Incorrect password');
+                    }
+                };
+                
+                submitBtn.addEventListener('click', checkPassword);
+                password.addEventListener('keydown', function(event) {
+                    if (event.keyCode === 13) {
+                        event.preventDefault();
+                        submitBtn.click();
+                    }
+                });
             }
-          };
-          submitBtn.addEventListener('click', checkPassword);
-          password.addEventListener('keydown', function(event) {
-            if (event.keyCode === 13) {
-              event.preventDefault();
-              submitBtn.click();
-            }
-          });
-        }
 
-        $("#returnBtn").click(function(e) {
-          window.location.href = "https://jotspace.vercel.app";
-          e.preventDefault();
+            $("#returnBtn").click(function(e) {
+                window.location.href = "https://jotspace.vercel.app";
+                e.preventDefault();
+            });
         });
-
-        $("#url-placeholder").text(window.location.href);
-      });
-
-  </script>
-  </body>
+    </script>
+</body>
 </html>
