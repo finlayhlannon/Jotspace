@@ -56,6 +56,23 @@ body {
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
 }
 
+.searchbtn {
+    background: linear-gradient(to right, #EC4899, #f55e5e);
+    color: white;
+    border: none;
+    border-radius: 9999px;
+    padding: 1rem 2.5rem;
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.searchbtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+}
+
 .container {
     display: flex;
     margin: 20px;
