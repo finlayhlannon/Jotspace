@@ -94,12 +94,29 @@
         </div>
       </div>
     </div>
+    <div class="searchpage">
+      <h1 class="big">Search for Jots</h1>
+      <input 
+        type="text" 
+        placeholder="Search" 
+        class="searchTag" 
+        style="margin-top: 30px; margin-left: 30%; width: 40%;" 
+      />
+    </div>
     <script>
       window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
     </script>
     <script defer src="/_vercel/insights/script.js"></script>
     <script>
       $(document).ready(function() {
+        $(".searchTag").keyup(function (event) {
+          if (event.keyCode === 13) { // 13 is the key code for Enter
+            var tag = $(this).val(); // Get the value of the input field
+            if (tag.trim() !== "") { // Ensure it's not empty
+              window.location.href = "./jots/" + encodeURIComponent(tag);
+            }
+          }
+        });
         $(".submit").click(function(e) {
           e.preventDefault();
 
@@ -134,7 +151,7 @@
         $(".homepage").on("click", "#searchBtn", function() {
           $(".content").hide();
           $(".homepage").hide();
-          window.location.href = "./search.html";
+          $(".searchpage").show()
         });
 
         $("#returnBtn").click(function(e) {
