@@ -13,6 +13,7 @@
         <h1 class="big">Welcome to Jotspace</h1>
         <p class="hero-description">Your space for quick notes, code snippets, and creative thoughts</p>
         <button id="submitBtn" class="openbtn">Create a Jot</button>
+        <button id="searchBtn" class="searchbtn">Search</button>
       </div>
     </div>
     <div class="content">
@@ -128,6 +129,12 @@
         $(".homepage").on("click", "#submitBtn", function() {
           $(".content").show();
           $(".homepage").hide();
+        });
+
+        $(".homepage").on("click", "#searchBtn", function() {
+          $(".content").hide();
+          $(".homepage").hide();
+          window.location.href = "./search.html";
         });
 
         $("#returnBtn").click(function(e) {
