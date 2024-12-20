@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Search Jots</title>
+    <link rel="stylesheet" href="static/style.css?v={{ timestamp }}" />
+    <link rel="icon" type="image/png" href="static/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <h1 class="big">Search for Jots</h1>
+    <input 
+      type="text" 
+      placeholder="Search" 
+      class="searchTag" 
+      style="margin-top: 30px; margin-left: 30%; width: 40%;" 
+    />
+  </body>
+
+  <script>
+    $(document).ready(function () {
+      $(".searchTag").keyup(function (event) {
+        if (event.keyCode === 13) { // 13 is the key code for Enter
+          var tag = $(this).val(); // Get the value of the input field
+          if (tag.trim() !== "") { // Ensure it's not empty
+            window.location.href = "./jots/" + encodeURIComponent(tag);
+          }
+        }
+      });
+    });
+  </script>
+</html>
