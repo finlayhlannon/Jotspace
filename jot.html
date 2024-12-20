@@ -189,7 +189,7 @@
       <input type="password" id="password" placeholder="Password" class="passwordinput">
       <button id="submitBtn">Submit</button>
     </div>
-    <h1>Jot #{{ request.url.split("/")[-1] | upper }}</h1>
+    <h1>Jot #{{ request.url.split("/")[-1] | lower }}</h1>
     <div class="content">
     <img class="copyjot" src="/static/copy.png" alt="copy">
     <!--<img class="copylink" src="/static/copy.png" alt="copy">-->
