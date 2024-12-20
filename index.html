@@ -113,7 +113,7 @@
           if (event.keyCode === 13) { // 13 is the key code for Enter
             var tag = $(this).val(); // Get the value of the input field
             if (tag.trim() !== "") { // Ensure it's not empty
-              window.location.href = "./jots/" + encodeURIComponent(tag);
+              window.location.href = "./jot/" + encodeURIComponent(tag);
             }
           }
         });
