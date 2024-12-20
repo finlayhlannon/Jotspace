@@ -109,6 +109,7 @@
     <script defer src="/_vercel/insights/script.js"></script>
     <script>
       $(document).ready(function() {
+        $(".searchpage").hide()
         $(".searchTag").keyup(function (event) {
           if (event.keyCode === 13) { // 13 is the key code for Enter
             var tag = $(this).val(); // Get the value of the input field
