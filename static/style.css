@@ -172,6 +172,13 @@ select:focus {
 }
 
 @media (max-width: 768px) {
+    body {
+        background: linear-gradient(135deg, #EEF2FF 0%, #FAE8FF 50%, #FDF2F8 100%);
+        font-family: Arial, sans-serif;
+        margin: 0;
+        min-height: 100vh;
+    } 
+    
     .container {
         flex-direction: column;
         margin: 10px;
